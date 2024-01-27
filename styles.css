@@ -1,19 +1,53 @@
 body {
-    background-color: #FFFFFF;
-    color: #000000;
+    background-color: #282970;
+    color: #FFFFFF;
     font-family: Optima; 
     font-style: normal; 
     font-variant: normal; 
     font-weight: 400; 
 }
 
-#addButton {
+#map { 
+    height: 100%; 
+    width: 100%;
+    background-color: #999999;
+}
+#buttonBorder {
+    /*
+    border-color: #FFFFFF;
+    border-width: 2px;
+    background-color: #FFDEDE;
+    border-radius: 7px;
+    outline: 2px;
+    outline-color: #000000;
+    */
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.primaryBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 33%;
     font-weight: 700;
-    color: #454545;
+    font-size: 25;
+    color: rgba(200, 200, 200, 0.8);
+    background-color: rgba(45, 45, 45, 0.0);
+    border-color: rgba(200, 200, 200, 0.3);
+    border-width: 0.5px;
+    border-radius: 3px;
+    /*
     background-image: radial-gradient(circle, #FFDE38 0%, #FFB340 100%);
     border-color: #FFB340;
+    border-width: 3px;
+    */
 }
-#map { 
-    height: 500px; 
-    width: 100%;
+
+.primaryBtn:hover {
+    /*
+    filter: brightness(95%);
+    color: #454545;
+    border-color: #FFB340;
+    */
+    border-color: rgba(200, 200, 200, 0.2);
+    background-color: rgba(45, 45, 45, 0.3);
 }
