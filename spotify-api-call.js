@@ -3,7 +3,8 @@
 and culture of irvine. Include the nature of irvine 
 as a city and community, as well as artists who originated from irvine
 */
-const BASE_URL = "https://api.spotify.com";
+const BASE_URL = "https://api.spotify.com/v1";
+
 function createPlaylist(user_id, name){
     //Reference: https://developer.spotify.com/documentation/web-api/reference/create-playlist
     var url = BASE_URL + '/users/' + user_id + '/playlists';
@@ -13,8 +14,20 @@ function createPlaylist(user_id, name){
         "collaborative": false
     }
     
-    curlPost(url, params, createToken());
+    curlPost(url, params, "");
 }
+
+function addSongs(playlist_id, tracks) {
+    var url = BASE_URL + '/playlists/' + playlist_id + '/tracks';
+    
+    var params = {
+        "uris": tracks
+    }
+
+    curlPost(url, params, "");
+
+}
+
 function curlPost(url, params, token) {
     /*
     curl --request POST \
@@ -40,10 +53,11 @@ function curlPost(url, params, token) {
             console.log(response)
         }
         else {
-            //error
+            alert(xhr.statusText);
         }
     }
 }
+
 
 function createToken() {
     var express = require('express');
@@ -183,5 +197,4 @@ function createToken() {
 
     console.log('Listening on 8888');
     app.listen(8888);
-    //hi
 }
