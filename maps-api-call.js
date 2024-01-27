@@ -23,6 +23,6 @@ function getCounty(lat, lng) {
     fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`)
         .then(res => res.json())
         .then((data) => {
-            console.log(data['features']['address']['county']);
+            console.log(data['features']['properties']['address']['county']);
         }).catch(err => console.error(err));
 }
