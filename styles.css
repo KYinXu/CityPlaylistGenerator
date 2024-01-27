@@ -27,6 +27,44 @@ body {
 
 #locationBorder {
     background-color: rgba(0, 0, 0, 0.5);
+
+}
+
+#hint {
+    transition: 0.1s;
+}
+
+#hint:hover {
+    fill: rgba(100, 100, 100, 1);
+}
+
+#hint:active {
+    fill: rgba(150, 150, 150, 1);
+}
+
+#hint:active:after {
+    transition: 0.2s;
+}
+
+
+#hint-label {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-style: solid;
+    border-color: rgba(100, 100, 100, 0.5);
+    border-width: 2px;
+    border-radius: 5px;
+    color: rgba(100, 100, 100, 1);
+}
+
+.clear {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+}
+.clear:focus {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
 }
 
 .primaryBtn {
@@ -63,9 +101,30 @@ body {
     
 }
 
+.fixed-top {
+    z-index: 500;
+}
+
 .leaflet-control-zoom {
     position: absolute;
+    top: 5px;
     bottom: 10px; /* distance from bottom*/
-    left: 10px; /* distance from left */
-    z-index: 1000; /* Ensure the zoom control is above other map elements */
+    left: 5px; /* distance from left */
+    z-index: 10000; /* Ensure the zoom control is above other map elements */
+}
+
+@media screen and (max-width: 850px){
+    #locationBorder {
+        margin-right: 0px !important;
+        right: 0px !important;
+        margin-left: 65% !important;
+    }
+    #hint-label {
+        width: 30%;
+    }
+}
+@media screen and (max-width: 300px){
+    #hint-label {
+        width: 50%;
+    }
 }
