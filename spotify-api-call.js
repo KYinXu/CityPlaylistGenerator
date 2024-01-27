@@ -13,7 +13,7 @@ function createPlaylist(user_id, name){
         "collaborative": false
     }
     
-    curlPost(url, params, '');
+    curlPost(url, params, createToken());
 }
 function curlPost(url, params, token) {
     /*
