@@ -10,9 +10,19 @@ map.on('mousemove', function(e) {
     var lat = e.latlng.lat.toFixed(4); 
     var lng = e.latlng.lng.toFixed(4);
     console.log("You clicked the map at latitude: " + lat + " and longitude: " + lng);
+    getCounty(lat,lng);
     return [lat, lng];
 });
 
 // cities
 // var cityLayer = L.geoJSON().addTo(map);
 // cityLayer.addData(geojsonFeature);
+
+function getCounty(lat, lng) {
+    
+    fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`)
+        .then(res => res.json())
+        .then((data) => {
+            console.log(data['features']['address']['county']);
+        }).catch(err => console.error(err));
+}
