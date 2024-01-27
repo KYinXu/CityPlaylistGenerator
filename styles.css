@@ -1,4 +1,15 @@
 body {
     background-color: #FFFFFF;
     color: #000000;
+    font-family: Optima; 
+    font-style: normal; 
+    font-variant: normal; 
+    font-weight: 400; 
+}
+
+#addButton {
+    font-weight: 700;
+    color: #454545;
+    background-image: radial-gradient(circle, #FFDE38 0%, #FFB340 100%);
+    border-color: #FFB340;
 }
