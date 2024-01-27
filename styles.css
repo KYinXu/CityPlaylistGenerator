@@ -13,3 +13,7 @@ body {
     background-image: radial-gradient(circle, #FFDE38 0%, #FFB340 100%);
     border-color: #FFB340;
 }
+#map { 
+    height: 500px; 
+    width: 100%;
+}
