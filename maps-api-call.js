@@ -10,7 +10,6 @@ map.on('mousemove', function(e) {
     var lat = e.latlng.lat.toFixed(4); 
     var lng = e.latlng.lng.toFixed(4);
     console.log("You clicked the map at latitude: " + lat + " and longitude: " + lng);
-    getCounty(lat,lng);
     return [lat, lng];
 });
 
@@ -26,3 +25,11 @@ function getCounty(lat, lng) {
             console.log(data['features']['properties']['address']['county']);
         }).catch(err => console.error(err));
 }
+
+map.on('mousedown', function(e) {
+    var lat = e.latlng.lat.toFixed(4); 
+    var lng = e.latlng.lng.toFixed(4);
+    console.log("You CLICKED the map at latitude: " + lat + " and longitude: " + lng);
+    getCounty(lat, lng);
+    return [lat, lng];
+});
