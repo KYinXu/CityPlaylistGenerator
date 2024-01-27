@@ -3,11 +3,11 @@
 and culture of irvine. Include the nature of irvine 
 as a city and community, as well as artists who originated from irvine
 */
-BASE_URL = "https://api.spotify.com"
+const BASE_URL = "https://api.spotify.com";
 function createPlaylist(user_id, name){
     //Reference: https://developer.spotify.com/documentation/web-api/reference/create-playlist
-    url = BASE_URL + '/users/' + user_id + '/playlists';
-    params = {
+    var url = BASE_URL + '/users/' + user_id + '/playlists';
+    var params = {
         "name": name,
         "public": true,
         "collaborative": false
