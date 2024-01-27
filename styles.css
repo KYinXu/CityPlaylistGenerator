@@ -29,6 +29,29 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
+#hint {
+    transition: 0.1s;
+}
+
+#hint:hover {
+    fill: rgba(100, 100, 100, 1);
+}
+
+#hint:active {
+    fill: rgba(150, 150, 150, 1);
+}
+
+.clear {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+}
+.clear:focus {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+}
+
 .primaryBtn {
     display: inline-flex;
     align-items: center;
