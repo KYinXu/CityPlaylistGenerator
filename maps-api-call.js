@@ -9,17 +9,16 @@ L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 map.on('mousemove', function(e) {
     var lat = e.latlng.lat.toFixed(4); 
     var lng = e.latlng.lng.toFixed(4);
-    console.log("You clicked the map at latitude: " + lat + " and longitude: " + lng);
+    console.log("You are at latitude: " + lat + " and longitude: " + lng);
     return [lat, lng];
 });
 
 fetch('California_County_Boundaries.json')
     .then(response => response.json())
     .then(data => {
-        // Create a GeoJSON layer for county boundaries and add it to the map
         L.geoJSON(data, {
             style: {
-                fillColor: getColorBasedOnLength(county.length),
+                fillColor: 'transparent',
                 color: 'black',            // Outline color
                 weight: 1.5,                // Outline weight
                 opacity: 1,                 // Outline opacity
