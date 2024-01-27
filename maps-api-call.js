@@ -16,3 +16,36 @@ map.on('mousemove', function(e) {
 // cities
 // var cityLayer = L.geoJSON().addTo(map);
 // cityLayer.addData(geojsonFeature);
+
+var counties = [
+    'Alameda', 'Alpine', 'Amador', 'Butte', 'Calaveras', 'Colusa',
+    'Contra Costa', 'Del Norte', 'El Dorado', 'Fresno', 'Glenn', 'Humboldt',
+    'Imperial', 'Inyo', 'Kern', 'Kings', 'Lake', 'Lassen', 'Los Angeles',
+    'Madera', 'Marin', 'Mariposa', 'Mendocino', 'Merced', 'Modoc', 'Mono',
+    'Monterey', 'Napa', 'Nevada', 'Orange', 'Placer', 'Plumas', 'Riverside',
+    'Sacramento', 'San Benito', 'San Bernardino', 'San Diego', 'San Francisco',
+    'San Joaquin', 'San Luis Obispo', 'San Mateo', 'Santa Barbara', 'Santa Clara',
+    'Santa Cruz', 'Shasta', 'Sierra', 'Siskiyou', 'Solano', 'Sonoma', 'Stanislaus',
+    'Sutter', 'Tehama', 'Trinity', 'Tulare', 'Tuolumne', 'Ventura', 'Yolo', 'Yuba'
+  ];cities.forEach((city, index) => {
+    fetch(`ca/${city}.json`)
+        .then(response => response.json())
+        .then(data => {
+            // Create a GeoJSON layer for the city with a different color based on name length
+            L.geoJSON(data, {
+                style: {
+                    fillColor: getColorBasedOnLength(city.length),
+                    color: 'white',
+                    weight: 2,
+                    opacity: 1,
+                    fillOpacity: 0.5
+                }
+            }).addTo(map);
+        })
+        .catch(error => console.error('Error loading GeoJSON:', error));
+});
+function getColorBasedOnLength(length) {
+
+    var colors = ['red', 'green', 'blue', 'purple', 'orange'];
+    return colors[length % colors.length];
+}
