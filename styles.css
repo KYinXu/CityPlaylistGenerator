@@ -14,5 +14,6 @@ body {
     border-color: #FFB340;
 }
 #map { 
-    height: 180px; 
+    height: 500px; 
+    width: 100%;
 }
