@@ -41,6 +41,10 @@ body {
     fill: rgba(150, 150, 150, 1);
 }
 
+#hint:active:after {
+    transition: 0.2s;
+}
+
 .clear {
     background: transparent !important;
     border: none !important;
