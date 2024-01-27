@@ -1,15 +1,18 @@
 var map = L.map('map').setView([33.645, -117.8427], 14);
+map.locate({setView: true, maxZoom: 14}); 
 
 L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     subdomains: ['a','b','c']
 }).addTo( map );
 
-navigator.geolocation.watchPosition(success, error);
+map.on('mousemove', function(e) {
+    var lat = e.latlng.lat.toFixed(4); 
+    var lng = e.latlng.lng.toFixed(4);
+    console.log("You clicked the map at latitude: " + lat + " and longitude: " + lng);
+    return [lat, lng];
+});
 
-function success(pos) {
-
-    const lat = pos.coords.latitude
-    const lng = pos.coords.longitude
-    const accuracy = pos.coords.accuracy;
-}
+// cities
+// var cityLayer = L.geoJSON().addTo(map);
+// cityLayer.addData(geojsonFeature);

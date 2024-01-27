@@ -23,6 +23,12 @@ body {
     */
     background-color: rgba(0, 0, 0, 0.5);
 }
+
+
+#locationBorder {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
 .primaryBtn {
     display: inline-flex;
     align-items: center;
@@ -50,4 +56,16 @@ body {
     */
     border-color: rgba(200, 200, 200, 0.2);
     background-color: rgba(45, 45, 45, 0.3);
+}
+.primaryBtn:active {
+    border-color: rgba(200, 200, 200, 0.7) !important;
+    background-color: rgba(45, 45, 45, 0.7) !important;
+    
+}
+
+.leaflet-control-zoom {
+    position: absolute;
+    bottom: 10px; /* distance from bottom*/
+    left: 10px; /* distance from left */
+    z-index: 1000; /* Ensure the zoom control is above other map elements */
 }
