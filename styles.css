@@ -52,7 +52,7 @@ body {
     border-style: solid;
     border-color: rgba(100, 100, 100, 0.5);
     border-width: 2px;
-    border-radius: 3px;
+    border-radius: 5px;
     color: rgba(100, 100, 100, 1);
 }
 
@@ -101,11 +101,16 @@ body {
     
 }
 
+.fixed-top {
+    z-index: 500;
+}
+
 .leaflet-control-zoom {
     position: absolute;
+    top: 5px;
     bottom: 10px; /* distance from bottom*/
-    left: 10px; /* distance from left */
-    z-index: 1000; /* Ensure the zoom control is above other map elements */
+    left: 5px; /* distance from left */
+    z-index: 10000; /* Ensure the zoom control is above other map elements */
 }
 
 @media screen and (max-width: 850px){
