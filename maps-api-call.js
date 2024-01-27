@@ -35,13 +35,27 @@ function getColorBasedOnLength(length) {
 }
 
 function getCounty(lat, lng) {
-    
-    fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`)
-        .then(res => res.json())
-        .then((data) => {
-            console.log(data['features']['properties']['address']['county']);
-        }).catch(err => console.error(err));
+    //https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=33.6604&lon=-117.8390
+    // fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`)
+    //     .then(response => response.json())
+    //     .then((data) => {
+    //         console.log(data['features']['properties']['address']['county']);
+    //     }).catch(err => console.error(err));
+    var xhr = new XMLHttpRequest();
+    console.log('fetching HTTP request')
+    xhr.open("GET", `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`);
+    xhr.send();
+    xhr.onload = ()=> {
+        if (xhr.status === 200) {
+            const response = JSON.parse(req.response)
+            console.log(response)
+        }
+        else {
+            alert(xhr.statusText);
+        }
+    }
 }
+
 
 map.on('mousedown', function(e) {
     var lat = e.latlng.lat.toFixed(4); 
