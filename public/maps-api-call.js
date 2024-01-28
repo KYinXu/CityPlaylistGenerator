@@ -109,10 +109,16 @@ function zoomToFeature(e) {
     }
     //console.log(highlightedCounty);
     document.getElementById('countyname').innerHTML=county;
-    console.log('test');
     document.getElementById("openplaylist").setAttribute('onclick', "createPlaylist('City Track: " + county + "')");
-    createPlaylist(county);
+    //createPlaylist(county);
     
+    openCountyModal(highlightedCounty);
+}
+
+function openCountyModal(countyName) {
+    document.getElementById('countyInfo').textContent = 'You clicked on ' + countyName;
+    const countyModal = new bootstrap.Modal('#countyModal');
+    countyModal.show();
 }
 
 function findRandom() {
@@ -126,7 +132,12 @@ function onEachFeature(feature, layer) {
     layer.on({
         mouseover: highlightFeature,
         mouseout: resetHighlight,
-        click: zoomToFeature
+        click: function(e) {
+            var countyName = e.target.feature.properties.name;
+            openCountyModal(highlightedCounty);
+            $('#myModal').remove()
+            zoomToFeature(e);
+        }
     });
 }
 
