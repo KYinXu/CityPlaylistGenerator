@@ -108,6 +108,7 @@ const BASE_URL = "https://api.spotify.com/v1";
   
           // use the access token to access the Spotify Web API
           request.get(options, function(error, response, body) {
+            console.log(body);
             user_id = body.id;
           });
   
