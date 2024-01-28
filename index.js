@@ -193,6 +193,8 @@ const BASE_URL = "https://api.spotify.com/v1";
     request.post(clientServerOptions, function (error, response, body) {
       console.log(response.statusCode);
       playlist_id = body.id;
+      console.log(body.id);
+      console.log(body);
 
       if (error || response.statusCode != 201) {
         console.log(body);
