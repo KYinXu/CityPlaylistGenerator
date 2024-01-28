@@ -50,8 +50,10 @@ function addSongToPlaylist(county, trackURI){
 function modifyVote(county, trackURI, val) {
     let db = new sqlite3.Database('data.db');
 
-    let statement = `UPDATE playlist_tracks  VALUES (
-                    "${county}", "${trackURI}", 0);`;
+    let statement = `UPDATE playlist_tracks
+                     SET votes = votes + ${val}
+                     WHERE county = "${county}"
+                     AND trackURI = "${trackURI}";`;
     db.run(statement, function(err) {
         if (err) {
             return console.error(err.message);
@@ -61,3 +63,5 @@ function modifyVote(county, trackURI, val) {
     db.close();
 
 } 
+
+modifyVote('Orange County', '1', -1);
