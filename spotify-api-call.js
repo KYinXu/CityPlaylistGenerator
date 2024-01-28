@@ -232,7 +232,7 @@ async function _getToken() {
         
         console.log(response.access_token);
         localStorage.setItem('access_token', response.access_token);
-        const token = localStorage.getItem('access_token');
+        return localStorage.getItem('access_token');
     }
 }
   
