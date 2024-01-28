@@ -109,16 +109,15 @@ function zoomToFeature(e) {
     }
     //console.log(highlightedCounty);
     document.getElementById('countyname').innerHTML=county;
-    document.getElementById("openplaylist").setAttribute('onclick', "createPlaylist('City Track: " + county + "')");
+    document.getElementById("openplaylist").setAttribute('onclick', "openCountyModal('" + county + "')");
     //createPlaylist(county);
     
     openCountyModal(county);
 }
 
 function openCountyModal(countyName) {
-    document.getElementById('countyInfo').textContent = 'You clicked on ' + countyName;
     document.getElementById('countyName2').innerHTML = countyName;
-    document.getElementById('loginButton').style.display = 'block';
+    document.getElementById('loginButton').style.display = 'block'; // delete to hide
     const countyModal = new bootstrap.Modal('#countyModal', {
         backdrop: 'static',  
         keyboard: false       

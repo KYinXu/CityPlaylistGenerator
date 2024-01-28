@@ -46,7 +46,7 @@
             
             <div class="d-flex justify-content-center w-100 h-25 fixed-bottom p-0" id="buttonBorder">
                 <div class="d-flex flex-row justify-content-center w-100 m-0">
-                    <a id="openplaylist" class="btn btn-primary my-2 mx-1 primaryBtn shadow-none" type = "button" href="" onclick="createPlaylist('Orange')" >Open Playlist</a>
+                    <a id="openplaylist" class="btn btn-primary my-2 mx-1 primaryBtn shadow-none" type = "button" href="" onclick="" >Open Playlist</a>
                     <!-- <form id="formcreateplaylist" action="/create_playlist?userid=xt6ngdtgaxqk1ptjz400k3lgb&name=City Track: Orange County" method="POST">
                         <input class="btn btn-primary my-2 mx-1 primaryBtn shadow-none" id="addButton" type = "submit" value="Add Song"></input>
                     </form> -->
@@ -80,18 +80,19 @@
 
             <div class="modal fade" id="countyModal" tabindex="-1" aria-labelledby="countyModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="countyModalLabel"><span id="countyName2">Orange County</span></h5>
+                  <div class="modal-content" id="welcome-display">
+                    <div class="modal-header" style="border: none;">
+                      <h5 class="modal-title" style="color: white;"id="countyModalLabel"><span id="countyName2">Orange County</span></h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="border: none;">
+                      <iframe src="https://open.spotify.com/embed/playlist/0SKIbslGIuG4cNNBbYNcBV" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                         <p id="countyInfo"></p>
                     </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" id="loginButton" style="display: none;">Log In</button>
-                      <button type="button" class="btn btn-success" onclick="createPlaylist()">Add Playlist</button>
-                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                    <div class="modal-footer" style="border: none;">
+                      <button type="button" class="btn btn-outline-secondary" id="loginButton" style="display: none;">Log In</button>
+                      <button type="button" class="btn btn-outline-success" onclick="createPlaylist()">Add Playlist</button>
+                      <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
                     </div>
                   </div>
                 </div>
