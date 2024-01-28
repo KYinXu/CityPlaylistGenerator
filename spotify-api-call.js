@@ -1,4 +1,4 @@
-var XMLHttpRequest = require('xhr2');
+//var XMLHttpRequest = require('xhr2');
 
 const BASE_URL = "https://api.spotify.com/v1";
 

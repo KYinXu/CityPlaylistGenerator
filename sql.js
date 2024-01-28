@@ -64,4 +64,3 @@ function modifyVote(county, trackURI, val) {
 
 } 
 
-modifyVote('Orange County', '1', -1);
