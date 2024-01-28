@@ -330,7 +330,7 @@ const _getToken = async code => {
         code_verifier: codeVerifier,
       }),
     }
-  
+    console.log(payload);
     const body = await fetch('https://accounts.spotify.com/api/token', payload);
     const response =await body.json();
   
