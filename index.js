@@ -288,6 +288,21 @@ function addSongToPlaylist(county, trackURI){
 
 }
 
+function deleteSongFromPlaylist(county, trackURI) {
+  let db = new sqlite3.Database('data.db');
+
+  let statement = `DELETE FROM playlist_tracks 
+                   WHERE county = "${county}" AND trackURI = "${trackURI}";`;
+
+  db.run(statement, function(err) {
+      if (err) {
+          return console.error(err.message);
+      }
+  });
+
+  db.close();
+}
+
 function modifyVote(county, trackURI, val) {
     let db = new sqlite3.Database('data.db');
 
