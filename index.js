@@ -153,6 +153,50 @@ var current_refresh_token = '';
   console.log('Listening on 5500');
   app.listen(5500);
 
+  const BASE_URL = "https://api.spotify.com/v1";
+
+function createPlaylist(user_id, name){
+    //Reference: https://developer.spotify.com/documentation/web-api/reference/create-playlist
+    var url = BASE_URL + '/users/' + user_id + '/playlists';
+    var params = {
+        "name": name,
+        "public": true,
+        "collaborative": false
+    }
+    
+    curlPost(url, params, current_token);
+}
+
+function addSongs(playlist_id, tracks) {
+    var url = BASE_URL + '/playlists/' + playlist_id + '/tracks';
+    
+    var params = {
+        "uris": tracks
+    }
+
+    curlPost(url, params, current_token);
+
+}
+
+function curlPost(url, params, token) {
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.send(JSON.stringify(params));
+    
+    xhr.onload = ()=> {
+        if (xhr.status === 200) {
+            const response = JSON.parse(xhr.response);
+            console.log(response);
+        }
+        else {
+            alert.log(xhr.statusText);
+        }
+    }
+}
 
 
 function addSong(trackURI, trackName, trackArtist) {
@@ -225,4 +269,3 @@ const getSongs = async (county) => {
 
     //call spotify api
 };
-
