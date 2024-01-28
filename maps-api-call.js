@@ -103,3 +103,8 @@ function onEachFeature(feature, layer) {
         click: zoomToFeature
     });
 }
+
+var imageUrl = 'https://aas.org/sites/default/files/inline-images/UCI-PACE.png'
+imageBounds = [[33.645, -117.8427], [33.645 + 0.01, -117.8427 + 0.01]];
+
+L.imageOverlay(imageUrl, imageBounds).addTo(map);
