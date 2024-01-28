@@ -54,27 +54,43 @@ function curlPost(url, params, token) {
         }
     }
 }
+const clientId = 'c0ecea08e95a467ab50824a0c9e2e150';
+const clientSecret = 'e7c5c2c3246c441b97fc244f2985fdbcT';
+const _getToken = async () => {
 
-const APIController = (function() {
+    const result = await fetch('https://accounts.spotify.com/api/token', {
+        method: 'POST',
+        headers: {
+            'Content-Type' : 'application/x-www-form-urlencoded', 
+            'Authorization' : 'Basic ' + btoa(clientId + ':' + clientSecret)
+        },
+        body: 'grant_type=client_credentials'
+    });
+
+    const data = await result.json();
+    console.log(data.access_token);
+    return data.access_token;
+}
+// const APIController = (function() {
     
-    const clientId = 'c0ecea08e95a467ab50824a0c9e2e150';
-    const clientSecret = 'e7c5c2c3246c441b97fc244f2985fdbcT';
+//     const clientId = 'c0ecea08e95a467ab50824a0c9e2e150';
+//     const clientSecret = 'e7c5c2c3246c441b97fc244f2985fdbcT';
 
-    // private methods
-    const _getToken = async () => {
+//     // private methods
+//     const _getToken = async () => {
 
-        const result = await fetch('https://accounts.spotify.com/api/token', {
-            method: 'POST',
-            headers: {
-                'Content-Type' : 'application/x-www-form-urlencoded', 
-                'Authorization' : 'Basic ' + btoa(clientId + ':' + clientSecret)
-            },
-            body: 'grant_type=client_credentials'
-        });
+//         const result = await fetch('https://accounts.spotify.com/api/token', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type' : 'application/x-www-form-urlencoded', 
+//                 'Authorization' : 'Basic ' + btoa(clientId + ':' + clientSecret)
+//             },
+//             body: 'grant_type=client_credentials'
+//         });
 
-        const data = await result.json();
-        return data.access_token;
-    }
+//         const data = await result.json();
+//         return data.access_token;
+//     }
     
     // const _getGenres = async (token) => {
 
@@ -141,7 +157,7 @@ const APIController = (function() {
     //         return _getTrack(token, trackEndPoint);
     //     }
     // }
-})();
+// })();
 // async function getToken() {
 //     console.log("RUN GET TOKEN");
 //     const generateRandomString = (length) => {
