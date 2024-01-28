@@ -1,9 +1,14 @@
 const express = require('express');
 const app = express();
+var path = require('path');
+app.use(express.static("public"));
 
 var client_id = 'c0ecea08e95a467ab50824a0c9e2e150';
 var redirect_uri = 'http://localhost:8888/callback';
 
+app.get('/', function(req, res) {
+   res.sendFile(path.join(__dirname + '/index.html'));
+ });
 app.get('/login', function(req, res) {
     var state = generateRandomString(16);
     var scope = 'user-read-private user-read-email';
