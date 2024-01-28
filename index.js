@@ -11,6 +11,7 @@
 var current_token = '';
 var current_refresh_token = '';
 var user_id = '';
+var playlist_id = '';
 const BASE_URL = "https://api.spotify.com/v1";
   const sqlite3 = require('sqlite3');
   const { open } = require('sqlite');
@@ -191,6 +192,7 @@ const BASE_URL = "https://api.spotify.com/v1";
       console.log(response.statusCode);
       if (error || response.statusCode != 201) {
         console.log(body);
+        playlist_id = response.id;
       }
       return;
 
@@ -198,6 +200,7 @@ const BASE_URL = "https://api.spotify.com/v1";
   });
   console.log('Listening on 5500');
   app.listen(5500);
+
 
 
 
@@ -326,7 +329,40 @@ const getSongs = async (county) => {
       driver: sqlite3.Database
     });
     const result = await db.all(`SELECT trackURI AS id FROM playlist_tracks WHERE county = "${county}"`);
-    return result.flatMap((value) => value.id);
+
+    app.post('/get_songs', function(req, res){
+      if (current_token == ''){
+        console.log('Please log in');
+        res.redirect('/');
+        return;
+      }
+      var url = BASE_URL + `/playlists/${playlist_id}/tracks`;
+      var params = {
+        'uris': result.flatMap((value) => value.id)
+      };
+      var clientServerOptions = {
+        method: 'POST',
+        url: url,
+        body: JSON.stringify({
+          'uris': result.flatMap((value) => value.id)
+        }),
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      }
+      request.post(clientServerOptions, function (error, response, body) {
+        console.log(response.statusCode);
+        if (error || response.statusCode != 201) {
+          console.log(body);
+        }
+        return;
+  
+      });
+    });
+
+    console.log('Listening on 5500');
+    app.listen(5500);
+
 
     //call spotify api
 };
