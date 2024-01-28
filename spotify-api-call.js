@@ -46,8 +46,8 @@ function curlPost(url, params, token) {
     
     xhr.onload = ()=> {
         if (xhr.status === 200) {
-            const response = JSON.parse(xhr.response)
-            console.log(response)
+            const response = JSON.parse(xhr.response);
+            console.log(response);
         }
         else {
             alert.log(xhr.statusText);
