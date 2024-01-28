@@ -161,7 +161,7 @@ function curlPost(url, params, token) {
 
 
 
-async function getToken() {
+async function _getToken() {
     console.log("RUN GET TOKEN");
     const generateRandomString = (length) => {
         const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
