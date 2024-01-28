@@ -1,5 +1,5 @@
 
-async function getToken() {
+/*async function getToken() {
     const generateRandomString = (length) => {
         const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         const values = crypto.getRandomValues(new Uint8Array(length));
@@ -69,4 +69,4 @@ async function getToken() {
         localStorage.setItem('access_token', response.access_token);
     }
 }
-  
+*/
