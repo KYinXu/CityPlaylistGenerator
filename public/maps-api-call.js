@@ -112,17 +112,18 @@ function zoomToFeature(e) {
     document.getElementById("openplaylist").setAttribute('onclick', "createPlaylist('City Track: " + county + "')");
     //createPlaylist(county);
     
-    openCountyModal(highlightedCounty);
+    openCountyModal(county);
 }
 
 function openCountyModal(countyName) {
     document.getElementById('countyInfo').textContent = 'You clicked on ' + countyName;
+    document.getElementById('countyName2').innerHTML = countyName;
     const countyModal = new bootstrap.Modal('#countyModal', {
         backdrop: 'static',  
         keyboard: false       
     });
-    countyModal.show();
 
+    countyModal.show();
     countyModal._element.addEventListener('hidden.bs.modal', function () {
         countyModal.dispose();  
     });

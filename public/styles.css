@@ -139,3 +139,9 @@ body {
         width: 50%;
     }
 }
+
+#countyModal .modal-body,
+#countyModal .modal-title,
+#countyModal .modal-footer {
+    color: black; 
+}

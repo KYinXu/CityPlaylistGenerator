@@ -1,6 +1,4 @@
-<!-- Catenary Maps 
-Track what users are listening to at locations
--->
+<!--Track what users are listening to at locations-->
 <html>
     <head>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -84,13 +82,14 @@ Track what users are listening to at locations
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="countyModalLabel">County Information</h5>
+                      <h5 class="modal-title" id="countyModalLabel"><span id="countyName2">Orange County</span></h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <p id="countyInfo"></p>
                     </div>
                     <div class="modal-footer">
+                      <button type="button" class="btn btn-success" onclick="createPlaylist()">Add Playlist</button>
                       <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
                     </div>
                   </div>
