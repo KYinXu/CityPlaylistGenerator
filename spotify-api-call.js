@@ -11,7 +11,7 @@ function createPlaylist(user_id, name){
         "collaborative": false
     }
     
-    curlPost(url, params, token);
+    curlPost(url, params, getToken());
 }
 
 function addSongs(playlist_id, tracks) {
@@ -127,6 +127,7 @@ async function getToken() {
         console.log(response.access_token);
         localStorage.setItem('access_token', response.access_token);
     }
+    return getToken;
 }
   
 // const client_secret = 'e7c5c2c3246c441b97fc244f2985fdbc';
