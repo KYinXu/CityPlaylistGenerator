@@ -11,6 +11,8 @@
 var current_token = '';
 var current_refresh_token = '';
 var user_id = '';
+var playlist_id = '';
+var URIS = [];
 const BASE_URL = "https://api.spotify.com/v1";
   const sqlite3 = require('sqlite3');
   const { open } = require('sqlite');
@@ -162,6 +164,7 @@ const BASE_URL = "https://api.spotify.com/v1";
 
   app.post('/create_playlist', function(req, res){
     //createPlaylist('shockersongz','Test new playlist');
+    
     if (current_token == ''){
       console.log('Please log in');
       res.redirect('/');
@@ -191,6 +194,8 @@ const BASE_URL = "https://api.spotify.com/v1";
       console.log(response.statusCode);
       if (error || response.statusCode != 201) {
         console.log(body);
+        playlist_id = response.id;
+        console.log(response.id);
       }
       return;
 
@@ -199,6 +204,43 @@ const BASE_URL = "https://api.spotify.com/v1";
   console.log('Listening on 5500');
   app.listen(5500);
 
+
+  app.post('/add_songs', function(req, res){
+    if (current_token == ''){
+      console.log('Please log in');
+      res.redirect('/');
+      return;
+    }
+    let county = req.query.county;
+    const db = open({
+      filename: 'data.db',
+      driver: sqlite3.Database
+    });
+    URIS = db.all(`SELECT trackURI AS id FROM playlist_tracks WHERE county = "${county}"`).flatMap((value) => value.id);
+
+    var url = BASE_URL + `/playlists/${playlist_id}/tracks`;
+    var params = {
+      'uris': URIS
+    };
+    var clientServerOptions = {
+      method: 'POST',
+      url: url,
+      body: JSON.stringify({
+        'uris': URIS
+      }),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    }
+    request.post(clientServerOptions, function (error, response, body) {
+      console.log(response.statusCode);
+      if (error || response.statusCode != 201) {
+        console.log(body);
+      }
+      return;
+
+    });
+  });
 
 
 // function createPlaylist(user_id, name){
@@ -288,6 +330,21 @@ function addSongToPlaylist(county, trackURI){
 
 }
 
+function deleteSongFromPlaylist(county, trackURI) {
+  let db = new sqlite3.Database('data.db');
+
+  let statement = `DELETE FROM playlist_tracks 
+                   WHERE county = "${county}" AND trackURI = "${trackURI}";`;
+
+  db.run(statement, function(err) {
+      if (err) {
+          return console.error(err.message);
+      }
+  });
+
+  db.close();
+}
+
 function modifyVote(county, trackURI, val) {
     let db = new sqlite3.Database('data.db');
 
@@ -305,13 +362,3 @@ function modifyVote(county, trackURI, val) {
 
 } 
 
-const getSongs = async (county) => {
-    const db = await open({
-      filename: 'data.db',
-      driver: sqlite3.Database
-    });
-    const result = await db.all(`SELECT trackURI AS id FROM playlist_tracks WHERE county = "${county}"`);
-    return result.flatMap((value) => value.id);
-
-    //call spotify api
-};
