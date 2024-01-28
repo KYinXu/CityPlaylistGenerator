@@ -62,7 +62,7 @@ const _getToken = async () => {
         method: 'POST',
         headers: {
             'Content-Type' : 'application/x-www-form-urlencoded', 
-            'Authorization' : 'Basic ' + btoa(clientId + ':' + clientSecret)
+            'Authorization' : 'Basic ' + btoa(clientId) + ':' + btoa(clientSecret)
         },
         body: 'grant_type=client_credentials'
     });
