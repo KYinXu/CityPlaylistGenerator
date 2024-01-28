@@ -118,6 +118,7 @@ function zoomToFeature(e) {
 function openCountyModal(countyName) {
     document.getElementById('countyInfo').textContent = 'You clicked on ' + countyName;
     document.getElementById('countyName2').innerHTML = countyName;
+    document.getElementById('loginButton').style.display = 'block';
     const countyModal = new bootstrap.Modal('#countyModal', {
         backdrop: 'static',  
         keyboard: false       
