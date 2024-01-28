@@ -46,8 +46,8 @@ function curlPost(url, params, token) {
     
     xhr.onload = ()=> {
         if (xhr.status === 200) {
-            const response = JSON.parse(xhr.response)
-            console.log(response)
+            const response = JSON.parse(xhr.response);
+            console.log(response);
         }
         else {
             alert.log(xhr.statusText);
@@ -66,9 +66,9 @@ async function getToken() {
     const codeVerifier  = generateRandomString(64);
 
     const sha256 = async (plain) => {
-        const encoder = new TextEncoder()
-        const data = encoder.encode(plain)
-        return window.crypto.subtle.digest('SHA-256', data)
+        const encoder = new TextEncoder();
+        const data = encoder.encode(plain);
+        return window.crypto.subtle.digest('SHA-256', data);
     }
     const base64encode = (input) => {
         return btoa(String.fromCharCode(...new Uint8Array(input)))
@@ -76,9 +76,10 @@ async function getToken() {
         .replace(/\+/g, '-')
         .replace(/\//g, '_');
     }
-    const hashed = await sha256(codeVerifier)
+    const hashed = await sha256(codeVerifier);
     const codeChallenge = base64encode(hashed);
     const clientId = 'c0ecea08e95a467ab50824a0c9e2e150';
+    //const clientId = 'YzBlY2VhMDhlOTVhNDY3YWI1MDgyNGEwYzllMmUxNTA=';
     const redirectUri = 'http://localhost:5500';
 
     const scope = 'user-read-private user-read-email';
@@ -120,15 +121,15 @@ async function getToken() {
             code_verifier: codeVerifier,
         }),
         }
-    
         const body = await fetch(url, payload);
-        const response =await body.json();
-    
+        const response = await body.json();
         console.log(response.access_token);
         localStorage.setItem('access_token', response.access_token);
-        const token = localStorage.getItem('access_token');
-        return token;
     }
+    getToken();
+    console.log(localStorage.getItem('access_token'));
+    
+    return localStorage.getItem('access_token');
 }
   
 // const client_secret = 'e7c5c2c3246c441b97fc244f2985fdbc';
