@@ -52,7 +52,7 @@ function getCounty(lat, lng) {
             console.log(response)
         }
         else {
-            alert(xhr.statusText);
+            alert(xhr.status);
         }
     }
 }
