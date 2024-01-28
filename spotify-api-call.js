@@ -11,7 +11,7 @@ function createPlaylist(user_id, name){
         "collaborative": false
     }
     
-    curlPost(url, params, access_token);
+    curlPost(url, params, token);
 }
 
 function addSongs(playlist_id, tracks) {
@@ -21,7 +21,7 @@ function addSongs(playlist_id, tracks) {
         "uris": tracks
     }
 
-    curlPost(url, params, access_token);
+    curlPost(url, params, token);
 
 }
 
