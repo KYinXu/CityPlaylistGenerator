@@ -99,7 +99,7 @@ const BASE_URL = "https://api.spotify.com/v1";
   
           var access_token = body.access_token,
               refresh_token = body.refresh_token;
-              
+
           var options = {
             url: 'https://api.spotify.cSom/v1/me',
             headers: { 'Authorization': 'Bearer ' + access_token },
@@ -207,8 +207,6 @@ const BASE_URL = "https://api.spotify.com/v1";
 
     });
   });
-  console.log('Listening on 5500');
-  app.listen(5500);
 
 
   app.post('/add_songs', async function (req, res){
@@ -251,6 +249,11 @@ const BASE_URL = "https://api.spotify.com/v1";
 
     });
   });
+  console.log('Listening on 5500');
+  app.listen(5500);
+
+
+
 
 
 // function createPlaylist(user_id, name){
