@@ -208,7 +208,7 @@ const BASE_URL = "https://api.spotify.com/v1";
     });
   });
 
-
+/*
   app.post('/add_songs', async function (req, res){
     if (current_token == ''){
       console.log('Please log in');
@@ -249,6 +249,7 @@ const BASE_URL = "https://api.spotify.com/v1";
 
     });
   });
+  */
   console.log('Listening on 5500');
   app.listen(5500);
 
