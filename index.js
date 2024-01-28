@@ -10,7 +10,7 @@
   
 var current_token = '';
 var current_refresh_token = '';
-var user_id = '';
+var user_id = 'xt6ngdtgaxqk1ptjz400k3lgb';
 var playlist_id = '';
 var URIS = [];
 const BASE_URL = "https://api.spotify.com/v1";
@@ -109,7 +109,7 @@ const BASE_URL = "https://api.spotify.com/v1";
           // use the access token to access the Spotify Web API
           request.get(options, function(error, response, body) {
             console.log(body);
-            user_id = body.id;
+            //user_id = body.id;
           });
   
           // we can also pass the token to the browser to make requests from there
@@ -208,7 +208,7 @@ const BASE_URL = "https://api.spotify.com/v1";
     });
   });
 
-/*
+
   app.post('/add_songs', async function (req, res){
     if (current_token == ''){
       console.log('Please log in');
@@ -249,7 +249,7 @@ const BASE_URL = "https://api.spotify.com/v1";
 
     });
   });
-  */
+  
   console.log('Listening on 5500');
   app.listen(5500);
 
