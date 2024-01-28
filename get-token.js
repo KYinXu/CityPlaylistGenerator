@@ -21,7 +21,7 @@ async function getToken() {
     const hashed = await sha256(codeVerifier)
     const codeChallenge = base64encode(hashed);
     const clientId = 'c0ecea08e95a467ab50824a0c9e2e150';
-    const redirectUri = 'localhost:5500';
+    const redirectUri = 'http://localhost:5500';
 
     const scope = 'user-read-private user-read-email';
     const authUrl = new URL("https://accounts.spotify.com/authorize")
