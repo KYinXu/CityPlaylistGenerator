@@ -159,51 +159,53 @@ function curlPost(url, params, token) {
     // }
 // })();
 
-const app = require('express');
-var client_id = 'c0ecea08e95a467ab50824a0c9e2e150';
-var redirect_uri = 'http://localhost:8888/callback';
+// const express = require('express');
+// const app = express();
 
-app.get('/login', function(req, res) {
-    var state = generateRandomString(16);
-    var scope = 'user-read-private user-read-email';
+// var client_id = 'c0ecea08e95a467ab50824a0c9e2e150';
+// var redirect_uri = 'http://localhost:8888/callback';
 
-    res.redirect('https://accounts.spotify.com/authorize?' +
-        querystring.stringify({
-            response_type: 'code',
-            client_id: client_id,
-            scope: scope,
-            redirect_uri: redirect_uri,
-            state: state
-    }));
-});
-app.listen(5555);
+// app.get('/login', function(req, res) {
+//     var state = generateRandomString(16);
+//     var scope = 'user-read-private user-read-email';
 
-app.get('/callback', function(req, res) {
+//     res.redirect('https://accounts.spotify.com/authorize?' +
+//         querystring.stringify({
+//             response_type: 'code',
+//             client_id: client_id,
+//             scope: scope,
+//             redirect_uri: redirect_uri,
+//             state: state
+//     }));
+// });
+// app.listen(5555);
 
-    var code = req.query.code || null;
-    var state = req.query.state || null;
+// app.get('/callback', function(req, res) {
+
+//     var code = req.query.code || null;
+//     var state = req.query.state || null;
   
-    if (state === null) {
-      res.redirect('/#' +
-        querystring.stringify({
-          error: 'state_mismatch'
-        }));
-    } else {
-      var authOptions = {
-        url: 'https://accounts.spotify.com/api/token',
-        form: {
-          code: code,
-          redirect_uri: redirect_uri,
-          grant_type: 'authorization_code'
-        },
-        headers: {
-          'content-type': 'application/x-www-form-urlencoded',
-          'Authorization': 'Basic ' + (new Buffer.from(client_id + ':' + client_secret).toString('base64'))
-        },
-        json: true
-      };
-    }
-  });
+//     if (state === null) {
+//       res.redirect('/#' +
+//         querystring.stringify({
+//           error: 'state_mismatch'
+//         }));
+//     } else {
+//       var authOptions = {
+//         url: 'https://accounts.spotify.com/api/token',
+//         form: {
+//           code: code,
+//           redirect_uri: redirect_uri,
+//           grant_type: 'authorization_code'
+//         },
+//         headers: {
+//           'content-type': 'application/x-www-form-urlencoded',
+//           'Authorization': 'Basic ' + (new Buffer.from(client_id + ':' + client_secret).toString('base64'))
+//         },
+//         json: true
+//       };
+//     }
+//   });
 
 // async function _getToken() {
 //     console.log("RUN GET TOKEN");
