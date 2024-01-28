@@ -230,11 +230,8 @@ async function _getToken() {
         const body = await fetch(url, payload);
         const response = await body.json();
         
-        console.log(response.access_token);
         localStorage.setItem('access_token', response.access_token);
-        var hi = localStorage.getItem('access_token')
-        console.log(hi)
-        return hi;
+        const token = localStorage.getItem('access_token');
     }
 }
   
