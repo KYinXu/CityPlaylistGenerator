@@ -235,6 +235,7 @@ async function _getToken() {
         return localStorage.getItem('access_token');
     }
 }
+console.log(_getToken())
   
 // const client_secret = 'e7c5c2c3246c441b97fc244f2985fdbc';
 
