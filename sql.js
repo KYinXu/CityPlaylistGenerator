@@ -64,3 +64,22 @@ function modifyVote(county, trackURI, val) {
 
 } 
 
+function getSongs(county){
+    let db = new sqlite3.Database('data.db');
+
+    var songs = [];
+
+        db.all(`SELECT trackURI AS id FROM playlist_tracks WHERE county = "${county}"`, (err, rows) => {
+           // songs.push(row.id);
+            console.log(rows);
+            db.close();
+            
+            return rows.flatMap((row) => row.id);
+        })
+    
+
+}
+
+console.log(getSongs('Orange County'));
+
+

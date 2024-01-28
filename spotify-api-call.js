@@ -54,83 +54,184 @@ function curlPost(url, params, token) {
         }
     }
 }
+// const clientId = 'c0ecea08e95a467ab50824a0c9e2e150';
+// const clientSecret = 'e7c5c2c3246c441b97fc244f2985fdbcT';
+// const _getToken = async () => {
 
+//     const result = await fetch('https://accounts.spotify.com/api/token', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type' : 'application/x-www-form-urlencoded', 
+//             'Authorization' : 'Basic ' + base64encode(clientId) + ':' + base64encode(clientSecret)
+//         },
+//         body: {'grant_type': 'authorization_type'}
+//     });
 
-async function getToken() {
-    console.log("RUN GET TOKEN");
-    const generateRandomString = (length) => {
-        const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        const values = crypto.getRandomValues(new Uint8Array(length));
-        return values.reduce((acc, x) => acc + possible[x % possible.length], "");
-    }
-    const codeVerifier  = generateRandomString(64);
-
-    const sha256 = async (plain) => {
-        const encoder = new TextEncoder();
-        const data = encoder.encode(plain);
-        return window.crypto.subtle.digest('SHA-256', data);
-    }
-    const base64encode = (input) => {
-        return btoa(String.fromCharCode(...new Uint8Array(input)))
-        .replace(/=/g, '')
-        .replace(/\+/g, '-')
-        .replace(/\//g, '_');
-    }
-    const hashed = await sha256(codeVerifier);
-    const codeChallenge = base64encode(hashed);
-    const clientId = 'c0ecea08e95a467ab50824a0c9e2e150';
-    //const clientId = 'YzBlY2VhMDhlOTVhNDY3YWI1MDgyNGEwYzllMmUxNTA=';
-    const redirectUri = 'http://localhost:5500';
-
-    const scope = 'user-read-private user-read-email';
-    const authUrl = new URL("https://accounts.spotify.com/authorize")
-
-    // generated in the previous step
-    window.localStorage.setItem('code_verifier', codeVerifier);
-
-    const params =  {
-    response_type: 'code',
-    client_id: clientId,
-    scope,
-    code_challenge_method: 'S256',
-    code_challenge: codeChallenge,
-    redirect_uri: redirectUri,
-    }
-
-    authUrl.search = new URLSearchParams(params).toString();
-    window.location.href = authUrl.toString();
-
-    const urlParams = new URLSearchParams(window.location.search);
-    let code = urlParams.get('code');
-
-    const getToken = async code => {
-
-        // stored in the previous step
-        let codeVerifier = localStorage.getItem('code_verifier');
+//     const data = await result.json();
+//     console.log(data.access_token);
+//     return data.access_token;
+// }
+// const APIController = (function() {
     
-        const payload = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-            client_id: clientId,
-            grant_type: 'authorization_code',
-            code,
-            redirect_uri: redirectUri,
-            code_verifier: codeVerifier,
-        }),
-        }
-        const body = await fetch(url, payload);
-        const response = await body.json();
-        console.log(response.access_token);
-        localStorage.setItem('access_token', response.access_token);
-    }
-    getToken();
-    console.log(localStorage.getItem('access_token'));
+//     const clientId = 'c0ecea08e95a467ab50824a0c9e2e150';
+//     const clientSecret = 'e7c5c2c3246c441b97fc244f2985fdbcT';
+
+//     // private methods
+//     const _getToken = async () => {
+
+//         const result = await fetch('https://accounts.spotify.com/api/token', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type' : 'application/x-www-form-urlencoded', 
+//                 'Authorization' : 'Basic ' + btoa(clientId + ':' + clientSecret)
+//             },
+//             body: 'grant_type=client_credentials'
+//         });
+
+//         const data = await result.json();
+//         return data.access_token;
+//     }
     
-    return localStorage.getItem('access_token');
-}
+    // const _getGenres = async (token) => {
+
+    //     const result = await fetch(`https://api.spotify.com/v1/browse/categories?locale=sv_US`, {
+    //         method: 'GET',
+    //         headers: { 'Authorization' : 'Bearer ' + token}
+    //     });
+
+    //     const data = await result.json();
+    //     return data.categories.items;
+    // }
+
+    // const _getPlaylistByGenre = async (token, genreId) => {
+
+    //     const limit = 10;
+        
+    //     const result = await fetch(`https://api.spotify.com/v1/browse/categories/${genreId}/playlists?limit=${limit}`, {
+    //         method: 'GET',
+    //         headers: { 'Authorization' : 'Bearer ' + token}
+    //     });
+
+    //     const data = await result.json();
+    //     return data.playlists.items;
+    // }
+
+    // const _getTracks = async (token, tracksEndPoint) => {
+
+    //     const limit = 10;
+
+    //     const result = await fetch(`${tracksEndPoint}?limit=${limit}`, {
+    //         method: 'GET',
+    //         headers: { 'Authorization' : 'Bearer ' + token}
+    //     });
+
+    //     const data = await result.json();
+    //     return data.items;
+    // }
+
+    // const _getTrack = async (token, trackEndPoint) => {
+
+    //     const result = await fetch(`${trackEndPoint}`, {
+    //         method: 'GET',
+    //         headers: { 'Authorization' : 'Bearer ' + token}
+    //     });
+
+    //     const data = await result.json();
+    //     return data;
+    // }
+
+    // return {
+    //     getToken() {
+    //         return _getToken();
+    //     },
+    //     getGenres(token) {
+    //         return _getGenres(token);
+    //     },
+    //     getPlaylistByGenre(token, genreId) {
+    //         return _getPlaylistByGenre(token, genreId);
+    //     },
+    //     getTracks(token, tracksEndPoint) {
+    //         return _getTracks(token, tracksEndPoint);
+    //     },
+    //     getTrack(token, trackEndPoint) {
+    //         return _getTrack(token, trackEndPoint);
+    //     }
+    // }
+// })();
+// async function getToken() {
+//     console.log("RUN GET TOKEN");
+//     const generateRandomString = (length) => {
+//         const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+//         const values = crypto.getRandomValues(new Uint8Array(length));
+//         return values.reduce((acc, x) => acc + possible[x % possible.length], "");
+//     }
+//     const codeVerifier  = generateRandomString(64);
+
+//     const sha256 = async (plain) => {
+//         const encoder = new TextEncoder()
+//         const data = encoder.encode(plain)
+//         return window.crypto.subtle.digest('SHA-256', data)
+//     }
+//     const base64encode = (input) => {
+//         return btoa(String.fromCharCode(...new Uint8Array(input)))
+//         .replace(/=/g, '')
+//         .replace(/\+/g, '-')
+//         .replace(/\//g, '_');
+//     }
+//     const hashed = await sha256(codeVerifier)
+//     const codeChallenge = base64encode(hashed);
+//     const clientId = 'c0ecea08e95a467ab50824a0c9e2e150';
+//     const redirectUri = 'http://localhost:5500';
+
+//     const scope = 'user-read-private user-read-email';
+//     const authUrl = new URL("https://accounts.spotify.com/authorize")
+
+//     // generated in the previous step
+//     window.localStorage.setItem('code_verifier', codeVerifier);
+
+//     const params =  {
+//     response_type: 'code',
+//     client_id: clientId,
+//     scope,
+//     code_challenge_method: 'S256',
+//     code_challenge: codeChallenge,
+//     redirect_uri: redirectUri,
+//     }
+
+//     authUrl.search = new URLSearchParams(params).toString();
+//     window.location.href = authUrl.toString();
+
+//     const urlParams = new URLSearchParams(window.location.search);
+//     let code = urlParams.get('code');
+
+//     const getToken = async code => {
+
+//         // stored in the previous step
+//         let codeVerifier = localStorage.getItem('code_verifier');
+    
+//         const payload = {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/x-www-form-urlencoded',
+//         },
+//         body: new URLSearchParams({
+//             client_id: clientId,
+//             grant_type: 'authorization_code',
+//             code,
+//             redirect_uri: redirectUri,
+//             code_verifier: codeVerifier,
+//         }),
+//         }
+    
+//         const body = await fetch(url, payload);
+//         const response = await body.json();
+    
+//         console.log(response.access_token);
+//         localStorage.setItem('access_token', response.access_token);
+//         const token = localStorage.getItem('access_token');
+//         return token;
+//     }
+// }
   
 // const client_secret = 'e7c5c2c3246c441b97fc244f2985fdbc';
 
@@ -206,3 +307,48 @@ async function getToken() {
 //       };
 //     }
 //   });
+const generateRandomString = (length) => {
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const values = crypto.getRandomValues(new Uint8Array(length));
+    return values.reduce((acc, x) => acc + possible[x % possible.length], "");
+  }
+const clientId = 'c0ecea08e95a467ab50824a0c9e2e150';
+const clientSecret = 'e7c5c2c3246c441b97fc244f2985fdbcT';
+const redirectUri = 'http://localhost:5500';
+const _getToken = async code => {
+    const codeVerifier  = generateRandomString(64);
+    const payload = {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({
+        client_id: clientId,
+        grant_type: 'authorization_code',
+        code,
+        redirect_uri: redirectUri,
+        code_verifier: codeVerifier,
+      }),
+    }
+    console.log(payload);
+    const body = await fetch('https://accounts.spotify.com/api/token', payload);
+    
+    const response =await body.json();
+  
+    console.log(response.access_token);
+  }
+  // const _getToken = async () => {
+
+//     const result = await fetch('https://accounts.spotify.com/api/token', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type' : 'application/x-www-form-urlencoded', 
+//             'Authorization' : 'Basic ' + base64encode(clientId) + ':' + base64encode(clientSecret)
+//         },
+//         body: {'grant_type': 'authorization_type'}
+//     });
+
+//     const data = await result.json();
+//     console.log(data.access_token);
+//     return data.access_token;
+// }

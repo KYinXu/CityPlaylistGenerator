@@ -76,24 +76,37 @@ function highlightFeature(e) {
 
     layer.setStyle({
         weight: 5,
-        color: '#FFFFFF',
-        fillColor: "blue",
+        color: '#FF4D4D',
+        fillColor: '#FF9580',
         dashArray: '',
         fillOpacity: 0.5
     });
 
     layer.bringToFront();
     highlightedCounty = layer.feature.properties.CountyName;
-    document.getElementById('county-name').textContent=highlightedCounty;
+    if (highlightedCounty == 'Orange') {
+        document.getElementById('countyname').innerHTML=highlightedCounty + ' County';
+    } else {
+        document.getElementById('countyname').innerHTML=highlightedCounty;
+    }
+    try {
     info.update(layer.feature.properties)
+    } catch(TypeError) {
+    }
 }
 
 function resetHighlight(e) {
     geojson.resetStyle(e.target);
-    info.update();
+    try{
+        info.update();
+    } catch(TypeError) {
+    }
+    
 }
 function zoomToFeature(e) {
     map.fitBounds(e.target.getBounds());
+    alert('Open spotify playlist here');
+    
 }
 
 function onEachFeature(feature, layer) {
