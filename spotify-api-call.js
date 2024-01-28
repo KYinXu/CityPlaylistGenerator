@@ -331,7 +331,7 @@ const _getToken = async code => {
       }),
     }
   
-    const body = await fetch(url, payload);
+    const body = await fetch('https://accounts.spotify.com/api/token', payload);
     const response =await body.json();
   
     console.log(response.access_token);
