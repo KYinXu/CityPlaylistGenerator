@@ -1,3 +1,7 @@
+window.onload = () => {
+    const myModal = new bootstrap.Modal('#welcome');
+    myModal.show();
+}
 function testFunction(){
     console.log("test")
 }
