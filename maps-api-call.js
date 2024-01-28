@@ -1,6 +1,6 @@
 var map = L.map('map').setView([33.645, -117.8427], 14);
 map.locate({setView: true, maxZoom: 14}); 
-highlightedCounty = "Irvine"
+highlightedCounty = ""
 
 L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -76,14 +76,15 @@ function highlightFeature(e) {
 
     layer.setStyle({
         weight: 5,
-        color: '#666',
+        color: '#FFFFFF',
         fillColor: "blue",
         dashArray: '',
-        fillOpacity: 0.7
+        fillOpacity: 0.5
     });
 
     layer.bringToFront();
     highlightedCounty = layer.feature.properties.CountyName;
+    document.getElementById('county-name').textContent=highlightedCounty;
     info.update(layer.feature.properties)
 }
 
