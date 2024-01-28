@@ -11,8 +11,7 @@ Track what users are listening to at locations
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossorigin=""></script>
-
-        <script src="index.js"></script>
+        <script src="dependencies.js"></script>
         <script src="spotify-api-call.js"></script>
         <script src="get-token.js"></script>
     </head>
@@ -32,7 +31,8 @@ Track what users are listening to at locations
                 <div class="position-absolute" id="hint-bound" style="left: 65px; top: 70px; visibility: hidden;">
                     <div id="hint-label" class="px-3 pt-2" style="width: 40%">
                         <h4>Info</h4>
-                        <p>Click a point on the map to get information on the county and other stuff change this long message later.</p>
+                        <p>Click a point on the map to access the curated 
+                            sountrack of that region.</p>
                     </div>
                 </div>
                 <div class="position-absolute" id="displaycounty">
@@ -51,7 +51,7 @@ Track what users are listening to at locations
                 <div class="d-flex flex-row justify-content-center w-100 m-0">
                     <a class="btn btn-primary my-2 mx-1 primaryBtn shadow-none" type = "button" href="#" onclick="testFunction()">Open Playlist</a>
                     <a class="btn btn-primary my-2 mx-1 primaryBtn shadow-none" id="addButton" type = "button" href="#" onclick="createPlaylist('shockersongz', 'Test new playlist')">Add Song</a>
-                    <a class="btn btn-primary my-2 mx-1 primaryBtn shadow-none" type = "button" href="/login" onclick="">Discover Location</a>
+                    <a class="btn btn-primary my-2 mx-1 primaryBtn shadow-none" type = "button" href="#" onclick="getLogin()">Discover Location</a>
                 </div>
             </div>
             
@@ -60,11 +60,15 @@ Track what users are listening to at locations
                 <div class="modal-dialog">
                   <div class="modal-content" id="welcome-display">
                     <div class="modal-header" style="border: none;">
-                      <h1 class="modal-title" id="exampleModalLabel">Welcome to my website</h1>
+                      <h1 class="modal-title" id="exampleModalLabel">City Soundtracks</h1>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      ...
+                        Listen and contribute to the soundtrack of your region!
+                         Simply select a county, and instantly generate a curated 
+                         Spotify playlist tailored to its unique musical tastes. 
+                         Add and upvote songs to enhance the communal playlist, 
+                         shaping the ultimate local music experience.
                     </div>
                     <div class="modal-footer justify-content-center px-2" style="border: none;">
                       <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Continue</button>

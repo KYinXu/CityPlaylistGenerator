@@ -119,6 +119,11 @@ body {
     z-index: 10000; /* Ensure the zoom control is above other map elements */
 }
 
+.modal-title {
+    margin: auto;
+    text-align: center !important;
+}
+
 @media screen and (max-width: 850px){
     #locationBorder {
         margin-right: 0px !important;

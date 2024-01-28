@@ -16,9 +16,3 @@ function showHint(hint_id){
         
     console.log('success');
 }
-
-function openCountyModal(countyName) {
-    document.getElementById('countyInfo').textContent = 'You clicked on ' + countyName;
-    const countyModal = new bootstrap.Modal('#countyModal');
-    countyModal.show();
-}
