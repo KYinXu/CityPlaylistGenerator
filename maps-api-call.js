@@ -106,14 +106,25 @@ function resetHighlight(e) {
 function zoomToFeature(e) {
     map.fitBounds(e.target.getBounds());
     alert('Open spotify playlist here');
-    
+    openCountyModal(highlightedCounty);
+}
+
+function openCountyModal(countyName) {
+    document.getElementById('countyInfo').textContent = 'You clicked on ' + countyName;
+    const countyModal = new bootstrap.Modal('#countyModal');
+    countyModal.show();
 }
 
 function onEachFeature(feature, layer) {
     layer.on({
         mouseover: highlightFeature,
         mouseout: resetHighlight,
-        click: zoomToFeature
+        click: function(e) {
+            var countyName = e.target.feature.properties.name;
+            openCountyModal(highlightedCounty);
+            $('#myModal').remove()
+            zoomToFeature(e);
+        }
     });
 }
 
