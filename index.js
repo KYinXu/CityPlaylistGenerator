@@ -10,7 +10,7 @@
   
 var current_token = '';
 var current_refresh_token = '';
-var user_id = '';
+var user_id = 'xt6ngdtgaxqk1ptjz400k3lgb';
 var playlist_id = '';
 var URIS = [];
 const BASE_URL = "https://api.spotify.com/v1";
@@ -99,16 +99,17 @@ const BASE_URL = "https://api.spotify.com/v1";
   
           var access_token = body.access_token,
               refresh_token = body.refresh_token;
-  
+
           var options = {
-            url: 'https://api.spotify.com/v1/me',
+            url: 'https://api.spotify.cSom/v1/me',
             headers: { 'Authorization': 'Bearer ' + access_token },
             json: true
           };
   
           // use the access token to access the Spotify Web API
           request.get(options, function(error, response, body) {
-            user_id = body.id;
+            console.log(body);
+            //user_id = body.id;
           });
   
           // we can also pass the token to the browser to make requests from there
@@ -192,8 +193,9 @@ const BASE_URL = "https://api.spotify.com/v1";
     }
     request.post(clientServerOptions, function (error, response, body) {
       console.log(response.statusCode);
-      playlist_id = body.id;
-      console.log(body.id);
+      playlist_id = JSON.parse(body).id;
+      console.log(body["id"]);
+      console.log(Object.prototype.toString.call(body));
       console.log(body.collaborative);
       console.log(body);
 
@@ -205,8 +207,6 @@ const BASE_URL = "https://api.spotify.com/v1";
 
     });
   });
-  console.log('Listening on 5500');
-  app.listen(5500);
 
 
   app.post('/add_songs', async function (req, res){
@@ -249,6 +249,12 @@ const BASE_URL = "https://api.spotify.com/v1";
 
     });
   });
+  
+  console.log('Listening on 5500');
+  app.listen(5500);
+
+
+
 
 
 // function createPlaylist(user_id, name){
