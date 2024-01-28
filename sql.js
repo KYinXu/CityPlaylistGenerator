@@ -1,4 +1,5 @@
 const sqlite3 = require('sqlite3');
+const { open } = require('sqlite');
 
 let db = new sqlite3.Database('data.db');
 
@@ -16,7 +17,6 @@ function addSong(trackURI, trackName, trackArtist) {
     });
     
     db.close();
-
 }
 
 function newPlaylist(county) {
@@ -64,22 +64,14 @@ function modifyVote(county, trackURI, val) {
 
 } 
 
-function getSongs(county){
-    let db = new sqlite3.Database('data.db');
+const getSongs = async (county) => {
+    const db = await open({
+      filename: 'data.db',
+      driver: sqlite3.Database
+    });
+    const result = await db.all(`SELECT trackURI AS id FROM playlist_tracks WHERE county = "${county}"`);
+    return result.flatMap((value) => value.id);
 
-    var songs = [];
-
-        db.all(`SELECT trackURI AS id FROM playlist_tracks WHERE county = "${county}"`, (err, rows) => {
-           // songs.push(row.id);
-            console.log(rows);
-            db.close();
-            
-            return rows.flatMap((row) => row.id);
-        })
-    
-
-}
-
-console.log(getSongs('Orange County'));
-
+    //call spotify api
+};
 
