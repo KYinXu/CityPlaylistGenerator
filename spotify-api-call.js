@@ -159,10 +159,9 @@ function curlPost(url, params, token) {
     // }
 // })();
 
+const app = require('express');
 var client_id = 'c0ecea08e95a467ab50824a0c9e2e150';
 var redirect_uri = 'http://localhost:8888/callback';
-
-var app = express();
 
 app.get('/login', function(req, res) {
 
