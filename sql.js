@@ -3,7 +3,7 @@ const sqlite3 = require('sqlite3');
 let db = new sqlite3.Database('data.db');
 
 
-function insertSong(trackURI, trackName, trackArtist) {
+function addSong(trackURI, trackName, trackArtist) {
 
     let db = new sqlite3.Database('data.db');
 
@@ -19,11 +19,24 @@ function insertSong(trackURI, trackName, trackArtist) {
 
 }
 
-function newPlaylist(city) {
+function newPlaylist(county) {
     let db = new sqlite3.Database('data.db');
 
-    let statement = `INSERT INTO tracks(trackURI, trackName, trackArtist) 
-                     VALUES ("${trackURI}", "${trackName}", "${trackArtist}")`;
+    let statement = `INSERT INTO playlists(county) VALUES ("${county}");`;
+    db.run(statement, function(err) {
+        if (err) {
+            return console.error(err.message);
+        }
+    });
+    
+    db.close();
+}
+
+function addSongToPlaylist(county, trackURI){
+    let db = new sqlite3.Database('data.db');
+
+    let statement = `INSERT INTO playlist_tracks(county, trackURI, votes) VALUES (
+                    "${county}", "${trackURI}", 0);`;
     db.run(statement, function(err) {
         if (err) {
             return console.error(err.message);
@@ -32,5 +45,23 @@ function newPlaylist(city) {
     
     db.close();
 
-
 }
+
+function modifyVote(county, trackURI, val) {
+    let db = new sqlite3.Database('data.db');
+
+    let statement = `UPDATE playlist_tracks
+                     SET votes = votes + ${val}
+                     WHERE county = "${county}"
+                     AND trackURI = "${trackURI}";`;
+    db.run(statement, function(err) {
+        if (err) {
+            return console.error(err.message);
+        }
+    });
+    
+    db.close();
+
+} 
+
+modifyVote('Orange County', '1', -1);

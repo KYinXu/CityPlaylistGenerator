@@ -10,6 +10,7 @@ CREATE TABLE playlists (
 CREATE TABLE playlist_tracks (
     county STRING,
     trackURI STRING,
+    votes INT,
     PRIMARY KEY (county, trackURI),
     FOREIGN KEY (county) REFERENCES playlists(county),
     FOREIGN KEY (trackURI) REFERENCES tracks(trackURI)
@@ -33,11 +34,11 @@ INSERT INTO playlists(county) VALUES ('Alameda County');
 INSERT INTO playlists(county) VALUES ('Los Angeles');
 
 
-INSERT INTO playlist_tracks(county, trackURI) VALUES ('Orange County', '1');
-INSERT INTO playlist_tracks(county, trackURI) VALUES ('Los Angeles', '2');
-INSERT INTO playlist_tracks(county, trackURI) VALUES ('Los Angeles', '3');
-INSERT INTO playlist_tracks(county, trackURI) VALUES ('Orange County', '2');
-INSERT INTO playlist_tracks(county, trackURI) VALUES ('Alameda County', '1');
+INSERT INTO playlist_tracks(county, trackURI, votes) VALUES ('Orange County', '1', 0);
+INSERT INTO playlist_tracks(county, trackURI, votes) VALUES ('Los Angeles', '2', 0);
+INSERT INTO playlist_tracks(county, trackURI, votes) VALUES ('Los Angeles', '3', 0);
+INSERT INTO playlist_tracks(county, trackURI, votes) VALUES ('Orange County', '2', 0);
+INSERT INTO playlist_tracks(county, trackURI, votes) VALUES ('Alameda County', '1', 0);
 
 SELECT * FROM tracks;
 SELECT * FROM playlists;
