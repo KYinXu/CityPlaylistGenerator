@@ -11,7 +11,7 @@ function createPlaylist(user_id, name){
         "collaborative": false
     }
     
-    curlPost(url, params, "");
+    curlPost(url, params, token);
 }
 
 function addSongs(playlist_id, tracks) {
@@ -21,7 +21,7 @@ function addSongs(playlist_id, tracks) {
         "uris": tracks
     }
 
-    curlPost(url, params, access_token);
+    curlPost(url, params, token);
 
 }
 
@@ -124,10 +124,47 @@ async function getToken() {
         const response =await body.json();
     
         localStorage.setItem('access_token', response.access_token);
+
+        return new Promise(async (resolve, reject) => {
+            try {
+                // stored in the previous step
+                let codeVerifier = localStorage.getItem('code_verifier');
+    
+                const payload = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({
+                        client_id: clientId,
+                        grant_type: 'authorization_code',
+                        code,
+                        redirect_uri: redirectUri,
+                        code_verifier: codeVerifier,
+                    }),
+                }
+    
+                const response = await fetch(url, payload);
+                const responseBody = await response.json();
+    
+                localStorage.setItem('access_token', responseBody.access_token);
+                resolve(responseBody.access_token);
+            } catch (error) {
+                reject(error);
+            }
+        });
     }
 }
   
-getToken();
+getToken()
+    .then(access_token => {
+        console.log('Access Token:', access_token);
+        var token = access_token
+    })
+    .catch(error => {
+        console.error('Error getting access token:', error);
+    });
+
 createPlaylist('shockersongz', 'THIS WAS CREAETD IN DFGUISUI');
 // const client_secret = 'e7c5c2c3246c441b97fc244f2985fdbc';
 
