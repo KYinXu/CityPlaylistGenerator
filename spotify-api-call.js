@@ -126,8 +126,9 @@ async function getToken() {
     
         console.log(response.access_token);
         localStorage.setItem('access_token', response.access_token);
+        const token = localStorage.getItem('access_token');
+        return token;
     }
-    return getToken;
 }
   
 // const client_secret = 'e7c5c2c3246c441b97fc244f2985fdbc';
