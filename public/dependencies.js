@@ -23,7 +23,7 @@ function addSongs(county){
 
     console.log(county);
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/create_playlist?county=" +county);
+    xhr.open("POST", "/add_songs?county=" +county);
     xhr.send();
 }
 
