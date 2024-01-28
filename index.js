@@ -232,6 +232,7 @@ const BASE_URL = "https://api.spotify.com/v1";
         'uris': URIS
       }),
       headers:{
+        'Authorization': 'Bearer ' + current_token,
         'Content-Type': 'application/json'
       }
     }
