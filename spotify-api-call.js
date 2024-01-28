@@ -318,7 +318,7 @@ const redirectUri = 'http://localhost:5500';
 const _getToken = async code => {
     const codeVerifier  = generateRandomString(64);
     const payload = {
-      method: 'POST',
+      method: 'post',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
@@ -332,6 +332,7 @@ const _getToken = async code => {
     }
     console.log(payload);
     const body = await fetch('https://accounts.spotify.com/api/token', payload);
+    
     const response =await body.json();
   
     console.log(response.access_token);
