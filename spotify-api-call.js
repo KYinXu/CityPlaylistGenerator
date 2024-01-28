@@ -50,7 +50,7 @@ function curlPost(url, params, token) {
             console.log(response)
         }
         else {
-            alert(xhr.statusText);
+            alert.log(xhr.statusText);
         }
     }
 }
@@ -123,49 +123,11 @@ async function getToken() {
         const body = await fetch(url, payload);
         const response =await body.json();
     
+        console.log(response.access_token);
         localStorage.setItem('access_token', response.access_token);
-
-        return new Promise(async (resolve, reject) => {
-            try {
-                // stored in the previous step
-                let codeVerifier = localStorage.getItem('code_verifier');
-    
-                const payload = {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: new URLSearchParams({
-                        client_id: clientId,
-                        grant_type: 'authorization_code',
-                        code,
-                        redirect_uri: redirectUri,
-                        code_verifier: codeVerifier,
-                    }),
-                }
-    
-                const response = await fetch(url, payload);
-                const responseBody = await response.json();
-    
-                localStorage.setItem('access_token', responseBody.access_token);
-                resolve(responseBody.access_token);
-            } catch (error) {
-                reject(error);
-            }
-        });
     }
 }
   
-getToken()
-    .then(access_token => {
-        console.log('Access Token:', access_token);
-        var token = access_token
-    })
-    .catch(error => {
-        console.error('Error getting access token:', error);
-    });
-
-createPlaylist('shockersongz', 'THIS WAS CREAETD IN DFGUISUI');
 // const client_secret = 'e7c5c2c3246c441b97fc244f2985fdbc';
 
 // app.get('/callback', function(req, res) {
