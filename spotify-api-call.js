@@ -232,10 +232,11 @@ async function _getToken() {
         
         console.log(response.access_token);
         localStorage.setItem('access_token', response.access_token);
-        return localStorage.getItem('access_token');
+        var hi = localStorage.getItem('access_token')
+        console.log(hi)
+        return hi;
     }
 }
-console.log(_getToken())
   
 // const client_secret = 'e7c5c2c3246c441b97fc244f2985fdbc';
 
