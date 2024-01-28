@@ -117,13 +117,23 @@ function zoomToFeature(e) {
 
 function openCountyModal(countyName) {
     document.getElementById('countyInfo').textContent = 'You clicked on ' + countyName;
-    const countyModal = new bootstrap.Modal('#countyModal');
+    const countyModal = new bootstrap.Modal('#countyModal', {
+        backdrop: 'static',  
+        keyboard: false       
+    });
     countyModal.show();
+
+    countyModal._element.addEventListener('hidden.bs.modal', function () {
+        countyModal.dispose();  
+    });
 }
 
+
 function findRandom() {
-    let rand = Math.floor(Math.random() * 58);
-    console.log(rand);
+    const features = geojson.getLayers();
+    const randIndex = Math.floor(Math.random() * features.length);
+    const randomFeature = features[randIndex];
+    zoomToFeature({ target: randomFeature });
 }
 
 document.getElementById("discoverlocation").setAttribute('onclick', "findRandom()");
@@ -135,7 +145,6 @@ function onEachFeature(feature, layer) {
         click: function(e) {
             var countyName = e.target.feature.properties.name;
             openCountyModal(highlightedCounty);
-            $('#myModal').remove()
             zoomToFeature(e);
         }
     });
