@@ -193,7 +193,7 @@ const BASE_URL = "https://api.spotify.com/v1";
     }
     request.post(clientServerOptions, function (error, response, body) {
       console.log(response.statusCode);
-      playlist_id = body.id;
+      playlist_id = JSON.parse(body).id;
       console.log(body["id"]);
       console.log(Object.prototype.toString.call(body));
       console.log(body.collaborative);
