@@ -192,10 +192,14 @@ const BASE_URL = "https://api.spotify.com/v1";
     }
     request.post(clientServerOptions, function (error, response, body) {
       console.log(response.statusCode);
+      playlist_id = body.id;
+      console.log(body.id);
+      console.log(body.collaborative);
+      console.log(body);
+
       if (error || response.statusCode != 201) {
         console.log(body);
-        playlist_id = response.id;
-        console.log(response.id);
+        
       }
       return;
 
@@ -205,18 +209,21 @@ const BASE_URL = "https://api.spotify.com/v1";
   app.listen(5500);
 
 
-  app.post('/add_songs', function(req, res){
+  app.post('/add_songs', async function (req, res){
     if (current_token == ''){
       console.log('Please log in');
       res.redirect('/');
       return;
     }
     let county = req.query.county;
-    const db = open({
+
+    const db = await open({
       filename: 'data.db',
       driver: sqlite3.Database
     });
-    URIS = db.all(`SELECT trackURI AS id FROM playlist_tracks WHERE county = "${county}"`).flatMap((value) => value.id);
+
+    URIS = await db.all(`SELECT trackURI AS id FROM playlist_tracks WHERE county = "${county}"`);
+    URIS = URIS.flatMap((value) => value.id);
 
     var url = BASE_URL + `/playlists/${playlist_id}/tracks`;
     var params = {
@@ -229,6 +236,7 @@ const BASE_URL = "https://api.spotify.com/v1";
         'uris': URIS
       }),
       headers:{
+        'Authorization': 'Bearer ' + current_token,
         'Content-Type': 'application/json'
       }
     }
