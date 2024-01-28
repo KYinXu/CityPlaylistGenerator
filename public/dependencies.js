@@ -16,6 +16,17 @@ function createPlaylist(county){
     xhr.send();
 }
 
+function addSongs(county){
+    if (county == "Orange") {
+        county = county + " County";
+    }
+
+    console.log(county);
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/add_songs?county=" +county);
+    xhr.send();
+}
+
 function showHint(hint_id){
     var tb = document.getElementById(hint_id);
     if (tb.style.visibility == "visible") {
