@@ -105,6 +105,8 @@ function resetHighlight(e) {
 }
 function zoomToFeature(e) {
     map.fitBounds(e.target.getBounds());
+    alert('Open spotify playlist here');
+    
 }
 
 function onEachFeature(feature, layer) {
