@@ -1,8 +1,5 @@
-//hi
-/*create a spotify playlist that captures the individuality 
-and culture of irvine. Include the nature of irvine 
-as a city and community, as well as artists who originated from irvine
-*/
+var XMLHttpRequest = require('xhr2');
+
 const BASE_URL = "https://api.spotify.com/v1";
 
 function createPlaylist(user_id, name){

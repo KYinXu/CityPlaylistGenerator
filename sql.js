@@ -50,7 +50,7 @@ function addSongToPlaylist(county, trackURI){
 function modifyVote(county, trackURI, val) {
     let db = new sqlite3.Database('data.db');
 
-    let statement = `INSERT INTO playlist_tracks(county, trackURI, votes) VALUES (
+    let statement = `UPDATE playlist_tracks  VALUES (
                     "${county}", "${trackURI}", 0);`;
     db.run(statement, function(err) {
         if (err) {
