@@ -10,12 +10,13 @@
   
 var current_token = '';
 var current_refresh_token = '';
-
+var user_id = '';
+const BASE_URL = "https://api.spotify.com/v1";
   const sqlite3 = require('sqlite3');
   const { open } = require('sqlite');
 
-  var client_id = 'c0ecea08e95a467ab50824a0c9e2e150'; // your clientId
-  var client_secret = 'e7c5c2c3246c441b97fc244f2985fdbc'; // Your secret
+  var client_id = '259088b65dba41fda3991a8dd6d7c303'; // your clientId
+  var client_secret = 'f1e890a5c63d4723bfadf25654105498'; // Your secret
   var redirect_uri = 'http://localhost:5500/callback'; // Your redirect uri
   
   
@@ -34,7 +35,11 @@ var current_refresh_token = '';
 
   app.use(express.static(__dirname + '/public'))
      .use(cors())
-     .use(cookieParser());
+     .use(cookieParser())
+     .use((req, res, next) => {
+        res.header('Access-Contol-Allow-Origin', 'http://localhost:5500');
+        next();
+     });
   
     app.get('/', function(req, res) {
         res.sendFile(path.join(__dirname + '/index.html'));
@@ -46,7 +51,7 @@ var current_refresh_token = '';
     res.cookie(stateKey, state);
   
     // your application requests authorization
-    var scope = 'user-read-private user-read-email';
+    var scope = 'playlist-modify-public';
     res.redirect('https://accounts.spotify.com/authorize?' +
       querystring.stringify({
         response_type: 'code',
@@ -101,7 +106,7 @@ var current_refresh_token = '';
   
           // use the access token to access the Spotify Web API
           request.get(options, function(error, response, body) {
-            console.log(body);
+            user_id = body.id;
           });
   
           // we can also pass the token to the browser to make requests from there
@@ -124,7 +129,8 @@ var current_refresh_token = '';
   
   app.get('/refresh_token', function(req, res) {
   
-    var refresh_token = req.query.refresh_token;
+    //var refresh_token = req.query.refresh_token;
+    var refresh_token = current_refresh_token;
     var authOptions = {
       url: 'https://accounts.spotify.com/api/token',
       headers: { 
@@ -147,56 +153,96 @@ var current_refresh_token = '';
           'refresh_token': refresh_token
         });
       }
+      current_token = body.access_token;
+      console.log(body);
     });
+    
   });
   
+
+  app.post('/create_playlist', function(req, res){
+    //createPlaylist('shockersongz','Test new playlist');
+    if (current_token == ''){
+      console.log('Please log in');
+      res.redirect('/');
+      return;
+    }
+    var name = req.query.name;
+    var url = BASE_URL + '/users/' + user_id + '/playlists';
+    var params = {
+      'name': name,
+      'public': true,
+      'collaborative': false
+    };
+    var clientServerOptions = {
+      method: 'POST',
+      url: url,
+      body: JSON.stringify({
+        'name': name,
+        'public': true,
+        'collaborative': false
+      }),
+      headers:{
+        'Authorization': 'Bearer ' + current_token,
+        'Content-Type': 'application/json'
+      }
+    }
+    request.post(clientServerOptions, function (error, response, body) {
+      console.log(response.statusCode);
+      if (error || response.statusCode != 201) {
+        console.log(body);
+      }
+      return;
+
+    });
+  });
   console.log('Listening on 5500');
   app.listen(5500);
 
-  const BASE_URL = "https://api.spotify.com/v1";
 
-function createPlaylist(user_id, name){
-    //Reference: https://developer.spotify.com/documentation/web-api/reference/create-playlist
-    var url = BASE_URL + '/users/' + user_id + '/playlists';
-    var params = {
-        "name": name,
-        "public": true,
-        "collaborative": false
-    }
+
+// function createPlaylist(user_id, name){
+//     //Reference: https://developer.spotify.com/documentation/web-api/reference/create-playlist
+//     var url = BASE_URL + '/users/' + user_id + '/playlists';
+//     var params = {
+//         "name": name,
+//         "public": true,
+//         "collaborative": false
+//     }
     
-    curlPost(url, params, current_token);
-}
+//     curlPost(url, params, current_token);
+// }
 
-function addSongs(playlist_id, tracks) {
-    var url = BASE_URL + '/playlists/' + playlist_id + '/tracks';
+// function addSongs(playlist_id, tracks) {
+//     var url = BASE_URL + '/playlists/' + playlist_id + '/tracks';
     
-    var params = {
-        "uris": tracks
-    }
+//     var params = {
+//         "uris": tracks
+//     }
 
-    curlPost(url, params, current_token);
+//     curlPost(url, params, current_token);
 
-}
+// }
 
-function curlPost(url, params, token) {
+// function curlPost(url, params, token) {
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('Authorization', 'Bearer ' + token);
-    xhr.setRequestHeader('Content-Type', 'application/json');
+//     var xhr = new XMLHttpRequest();
+//     xhr.open('POST', url, true);
+//     xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+//     xhr.setRequestHeader('Content-Type', 'application/json');
 
-    xhr.send(JSON.stringify(params));
+//     xhr.send(JSON.stringify(params));
     
-    xhr.onload = ()=> {
-        if (xhr.status === 200) {
-            const response = JSON.parse(xhr.response);
-            console.log(response);
-        }
-        else {
-            alert.log(xhr.statusText);
-        }
-    }
-}
+//     xhr.onload = ()=> {
+//         if (xhr.status === 200) {
+//             const response = JSON.parse(xhr.response);
+//             console.log(response);
+//         }
+//         else {
+//             alert.log(xhr.statusText);
+//         }
+//     }
+// }
 
 
 function addSong(trackURI, trackName, trackArtist) {

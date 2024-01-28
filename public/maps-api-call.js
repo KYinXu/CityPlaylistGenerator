@@ -2,6 +2,7 @@ var map = L.map('map').setView([33.645, -117.8427], 14);
 map.locate({setView: true, maxZoom: 14}); 
 highlightedCounty = ""
 
+
 L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     subdomains: ['a','b','c'],
@@ -11,8 +12,8 @@ L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 map.on('mousemove', function(e) {
     var lat = e.latlng.lat.toFixed(4); 
     var lng = e.latlng.lng.toFixed(4);
-    console.log("You are at latitude: " + lat + " and longitude: " + lng);
-    console.log(highlightedCounty)
+    //console.log("You are at latitude: " + lat + " and longitude: " + lng);
+    //console.log(highlightedCounty)
     return [lat, lng];
 });
 
@@ -46,7 +47,7 @@ fetch('California_County_Boundaries.json')
 map.on('mousedown', function(e) {
     var lat = e.latlng.lat.toFixed(4); 
     var lng = e.latlng.lng.toFixed(4);
-    console.log("You CLICKED the map at latitude: " + lat + " and longitude: " + lng);
+    //console.log("You CLICKED the map at latitude: " + lat + " and longitude: " + lng);
     // getCounty(lat, lng);
     return [lat, lng];
 });
@@ -83,12 +84,8 @@ function highlightFeature(e) {
     });
 
     layer.bringToFront();
-    highlightedCounty = layer.feature.properties.CountyName;
-    if (highlightedCounty == 'Orange') {
-        document.getElementById('countyname').innerHTML=highlightedCounty + ' County';
-    } else {
-        document.getElementById('countyname').innerHTML=highlightedCounty;
-    }
+    
+    //document.getElementById('formcreateplaylist').action = "/create_playlist?userid=" + userid + "&name=" + "City Track: " + highlightedCounty;
     try {
     info.update(layer.feature.properties)
     } catch(TypeError) {
@@ -104,10 +101,26 @@ function resetHighlight(e) {
     
 }
 function zoomToFeature(e) {
+    
     map.fitBounds(e.target.getBounds());
-    alert('Open spotify playlist here');
+    var county = e.target.feature.properties.CountyName;
+    if (county == 'Orange') {
+        county = county + ' County';
+    }
+    //console.log(highlightedCounty);
+    document.getElementById('countyname').innerHTML=county;
+    console.log('test');
+    document.getElementById("openplaylist").setAttribute('onclick', "createPlaylist('City Track: " + county + "')");
+    createPlaylist(county);
     
 }
+
+function findRandom() {
+    let rand = Math.floor(Math.random() * 58);
+    console.log(rand);
+}
+
+document.getElementById("discoverlocation").setAttribute('onclick', "findRandom()");
 
 function onEachFeature(feature, layer) {
     layer.on({

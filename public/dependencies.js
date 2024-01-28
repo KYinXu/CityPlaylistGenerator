@@ -1,10 +1,21 @@
 window.onload = () => {
-    const myModal = new bootstrap.Modal('#welcome');
-    myModal.show();
+    //const myModal = new bootstrap.Modal('#welcome');
+    //myModal.show();
 }
 function testFunction(){
-    console.log("test")
+    console.log("test");
 }
+
+function createPlaylist(county){
+    if (county == "Orange") {
+        county = county + " County";
+    }
+    console.log(county);
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/create_playlist?name=City Track: " + county);
+    xhr.send();
+}
+
 function showHint(hint_id){
     var tb = document.getElementById(hint_id);
     if (tb.style.visibility == "visible") {
