@@ -213,10 +213,11 @@ const BASE_URL = "https://api.spotify.com/v1";
     }
     let county = req.query.county;
 
-    const db = open({
+    const db = await open({
       filename: 'data.db',
       driver: sqlite3.Database
     });
+
     URIS = await db.all(`SELECT trackURI AS id FROM playlist_tracks WHERE county = "${county}"`).flatMap((value) => value.id);
 
     var url = BASE_URL + `/playlists/${playlist_id}/tracks`;
